@@ -17,6 +17,7 @@ func TestFindRepeatNumber(t *testing.T) {
 	//fmt.Println(FindNumberIn2DArray(a, 19))
 	//fmt.Println(ReplaceSpace("a b cdef "))
 	//fmt.Println(ReplaceSpace02("a b cdef "))
-	fmt.Println(Fib(95))
+	//fmt.Println(Fib(95))
+	fmt.Println(MinArray([]int{1, 3, 5}))
 
 }
