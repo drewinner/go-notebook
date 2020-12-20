@@ -18,6 +18,17 @@ func TestFindRepeatNumber(t *testing.T) {
 	//fmt.Println(ReplaceSpace("a b cdef "))
 	//fmt.Println(ReplaceSpace02("a b cdef "))
 	//fmt.Println(Fib(95))
-	fmt.Println(MinArray([]int{1, 3, 5}))
+	//fmt.Println(MinArray([]int{1, 3, 5}))
+	l := &ListNode{
+		Val: 0,
+		Next: &ListNode{
+			Val: 1,
+			Next: &ListNode{
+				Val:  2,
+				Next: nil,
+			},
+		},
+	}
+	fmt.Println(ReversePrint01(l))
 
 }

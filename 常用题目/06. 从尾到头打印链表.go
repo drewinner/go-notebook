@@ -31,3 +31,16 @@ func reversePrint(head *ListNode) []int {
 	return arr
 
 }
+
+var rs []int
+
+func ReversePrint01(head *ListNode) []int {
+	if head != nil {
+		if head.Next != nil {
+			ReversePrint01(head.Next)
+		}
+		rs = append(rs, head.Val)
+	}
+	return rs
+
+}
