@@ -24,11 +24,21 @@ func TestFindRepeatNumber(t *testing.T) {
 		Next: &ListNode{
 			Val: 1,
 			Next: &ListNode{
-				Val:  2,
-				Next: nil,
+				Val: 2,
+				Next: &ListNode{
+					Val: 3,
+					Next: &ListNode{
+						Val:  5,
+						Next: nil,
+					},
+				},
 			},
 		},
 	}
-	fmt.Println(ReversePrint01(l))
+	DeleteNode(l, 3)
+	for l != nil {
+		fmt.Println(l.Val)
+		l = l.Next
+	}
 
 }
