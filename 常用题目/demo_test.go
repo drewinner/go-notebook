@@ -1,7 +1,6 @@
 package 常用题目
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -19,26 +18,6 @@ func TestFindRepeatNumber(t *testing.T) {
 	//fmt.Println(ReplaceSpace02("a b cdef "))
 	//fmt.Println(Fib(95))
 	//fmt.Println(MinArray([]int{1, 3, 5}))
-	l := &ListNode{
-		Val: 0,
-		Next: &ListNode{
-			Val: 1,
-			Next: &ListNode{
-				Val: 2,
-				Next: &ListNode{
-					Val: 3,
-					Next: &ListNode{
-						Val:  5,
-						Next: nil,
-					},
-				},
-			},
-		},
-	}
-	DeleteNode(l, 3)
-	for l != nil {
-		fmt.Println(l.Val)
-		l = l.Next
-	}
+	FirstUniqChar("abcac")
 
 }
