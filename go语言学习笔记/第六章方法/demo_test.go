@@ -9,8 +9,10 @@ func TestN_Chap6Demo01(t *testing.T) {
 	//var x *X
 	//x.Test()
 	//X{}.Test()
-	var tt TT
-	MethodSet(tt)
+	var s SS
+	MethodSet(s)
 	fmt.Println("++++")
-	MethodSet(&tt)
+	MethodSet(&s)
+	//u := user{"Bill", "bill@email.com"}
+	//sendNotificatioin(u)
 }
