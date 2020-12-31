@@ -1,6 +1,7 @@
 package 常用题目
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -18,6 +19,7 @@ func TestFindRepeatNumber(t *testing.T) {
 	//fmt.Println(ReplaceSpace02("a b cdef "))
 	//fmt.Println(Fib(95))
 	//fmt.Println(MinArray([]int{1, 3, 5}))
-	FirstUniqChar("abcac")
-
+	//FirstUniqChar("abcac")
+	fmt.Println(FindRepeatNumber01([]int{1, 2, 3, 6, 2}))
+	//fmt.Println(FindRepeatNumber01([]int{2, 3, 1, 0, 2, 5, 3}))
 }

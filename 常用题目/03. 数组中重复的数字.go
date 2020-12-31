@@ -23,3 +23,20 @@ func FindRepeatNumber(nums []int) int {
 	}
 	return 0
 }
+
+func FindRepeatNumber01(nums []int) int {
+	if len(nums) == 0 {
+		return 0
+	}
+	for i := 0; i < len(nums); i++ {
+		for i != nums[i] {
+			//判断
+			if nums[i] == nums[nums[i]] {
+				return nums[i]
+			}
+			//交换
+			nums[i], nums[nums[i]] = nums[nums[i]], nums[i]
+		}
+	}
+	return 0
+}
