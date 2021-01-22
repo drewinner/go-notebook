@@ -20,6 +20,6 @@ func TestFindRepeatNumber(t *testing.T) {
 	//fmt.Println(Fib(95))
 	//fmt.Println(MinArray([]int{1, 3, 5}))
 	//FirstUniqChar("abcac")
-	fmt.Println(FindRepeatNumber01([]int{1, 2, 3, 6, 2}))
+	fmt.Println(FindRepeatNumber01([]int{1, 2, 3, 4, 5, 5}))
 	//fmt.Println(FindRepeatNumber01([]int{2, 3, 1, 0, 2, 5, 3}))
 }
