@@ -9,18 +9,22 @@ func handler(writer http.ResponseWriter, request *http.Request) {
 	_, _ = fmt.Fprintf(writer, "hello world :%s", request.URL.Path[1:])
 }
 
-type a string
+func handler01(writer http.ResponseWriter, request *http.Request) {
+	_, _ = fmt.Fprintf(writer, "hello world 01 :%s", request.URL.Path[1:])
+}
 
-// ServeHTTP calls f(w, r).
-func (f a) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(w.Header())
+func handler02(writer http.ResponseWriter, request *http.Request) {
+	_, _ = fmt.Fprintf(writer, "hello world 02:%s", request.URL.Path[1:])
+}
+
+func handler03(writer http.ResponseWriter, request *http.Request) {
+	_, _ = fmt.Fprintf(writer, "hello world 03:%s", request.URL.Path[1:])
 }
 
 func Demo01Test() {
 	http.HandleFunc("/", handler)
-	http.HandleFunc("/aa/", handler)
-	http.HandleFunc("/aa/bb/", handler)
-	http.HandleFunc("/aa/bb/cc", handler)
-	http.Handle("aaa", a("www"))
+	http.HandleFunc("/aa/", handler01)
+	http.HandleFunc("/aa/bb/", handler02)
+	http.HandleFunc("/aa/bb/cc", handler03)
 	_ = http.ListenAndServe(":8080", nil)
 }
