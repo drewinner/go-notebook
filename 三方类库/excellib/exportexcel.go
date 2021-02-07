@@ -1,4 +1,4 @@
-package main
+package excellib
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func main() {
+func ExportExcel() {
 	s := "date：" + time.Now().Format("2006-01-02 15:04:05") + "\n"
 	filePath := "./1.xlsx"
 	f, err := excelize.OpenFile(filePath)
