@@ -15,7 +15,12 @@ func NewDelayReturn(dur time.Duration, n int) func() (interface{}, error) {
 	}
 }
 
+type person struct {
+	name string
+}
+
 func TestGroup_Do(t *testing.T) {
+
 	g := Group{}
 	wg := sync.WaitGroup{}
 	wg.Add(3)

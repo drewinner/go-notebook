@@ -24,35 +24,44 @@ func NewDelayReturn(dur time.Duration, n int) func() (interface{}, error) {
 func SyncWait() {
 	g := singleflight.Group{}
 	wg := sync.WaitGroup{}
-	wg.Add(3)
+	wg.Add(2)
 	go func() {
 		fmt.Println("执行我了1")
-		ret, err := g.Do("key", NewDelayReturn(time.Second*10, 1))
+		ret, err := g.Do("key", NewDelayReturn(time.Second*1, 1))
 		if err != nil {
 			panic(err)
 		}
 		fmt.Printf("key-1 get %v\n", ret)
 		wg.Done()
 	}()
+	//go func() {
+	//	time.Sleep(100 * time.Millisecond) // make sure this is call is later
+	//	fmt.Println("执行我了2")
+	//	ret, err := g.Do("key", NewDelayReturn(time.Second*3, 2))
+	//	if err != nil {
+	//		panic(err)
+	//	}
+	//	fmt.Printf("key-2 get %v\n", ret)
+	//	wg.Done()
+	//}()
 	go func() {
-		time.Sleep(100 * time.Millisecond) // make sure this is call is later
-		fmt.Println("执行我了2")
-		ret, err := g.Do("key", NewDelayReturn(time.Second*3, 2))
+		fmt.Println("执行我了key1 1")
+		ret, err := g.Do("key1", NewDelayReturn(time.Second*3, 2))
 		if err != nil {
 			panic(err)
 		}
-		fmt.Printf("key-2 get %v\n", ret)
+		fmt.Printf("key-1-1 get %v\n", ret)
 		wg.Done()
 	}()
-	go func() {
-		fmt.Println("执行我了3")
-		ret, err := g.Do("key", NewDelayReturn(time.Second*3, 2))
-		if err != nil {
-			panic(err)
-		}
-		fmt.Printf("key-3 get %v\n", ret)
-		wg.Done()
-	}()
+	//go func() {
+	//	fmt.Println("执行我了key1 2")
+	//	ret, err := g.Do("key1", NewDelayReturn(time.Second*3, 2))
+	//	if err != nil {
+	//		panic(err)
+	//	}
+	//	fmt.Printf("key-1-2 get %v\n", ret)
+	//	wg.Done()
+	//}()
 	wg.Wait()
 }
 

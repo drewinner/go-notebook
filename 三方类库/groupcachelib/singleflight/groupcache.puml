@@ -1,0 +1,119 @@
+@startuml
+interface   Sink {
+    SetString(s string) error
+    SetBytes(v []byte) error
+    SetProto(m proto.Message) error
+    view() (ByteView, error)
+}
+class allocBytesSink {
+    dst *[]byte
+    v   ByteView
+}
+class protoSink {
+    dst proto.Message
+    typ string
+    v ByteView
+}
+class byteViewSink {
+    dst *ByteView
+}
+class stringSink {
+    sp *string
+    v  ByteView
+}
+class truncBytesSink {
+    dst *[]byte
+    v   ByteView
+}
+class ByteView {
+    b []byte
+    s string
+}
+
+Sink <|-- allocBytesSink
+Sink <|-- protoSink
+Sink <|-- byteViewSink
+Sink <|-- stringSink
+Sink <|-- truncBytesSink
+
+allocBytesSink --> "v" ByteView
+protoSink --> "v" ByteView
+byteViewSink --> "dst" ByteView
+stringSink --> "v" ByteView
+truncBytesSink --> "v" ByteView
+
+
+interface PeerPicker {
+    PickPeer(key string) (peer ProtoGetter, ok bool)
+}
+
+class HTTPPool {
+    Context func(*http.Request) context.Context
+    Transport func(context.Context) http.RoundTripper
+    self string
+    opts HTTPPoolOptions
+    mu          sync.Mutex
+    peers       *consistenthash.Map
+    httpGetters map[string]*httpGetter
+}
+
+class httpGetter {
+    transport func(context.Context) http.RoundTripper
+    baseURL   string
+}
+
+class NoPeers {
+
+}
+
+interface ProtoGetter {
+    Get(ctx context.Context, in *pb.GetRequest, out *pb.GetResponse) error
+}
+
+PeerPicker <|-- HTTPPool
+PeerPicker <|-- NoPeers
+ProtoGetter <|-- httpGetter
+HTTPPool --> "httpGetters" httpGetter
+
+interface Getter {
+    Get(ctx context.Context, key string, dest Sink) error
+}
+class Group {
+    name       string
+	getter     Getter
+	peersOnce  sync.Once
+	peers      PeerPicker
+	cacheBytes int64
+	mainCache cache
+	hotCache cache
+	loadGroup flightGroup
+	_ int32
+	Stats Stats
+}
+
+class Stats {
+    Gets           AtomicInt
+    CacheHits      AtomicInt
+    PeerLoads      AtomicInt
+    PeerErrors     AtomicInt
+    Loads          AtomicInt
+    LoadsDeduped   AtomicInt
+    LocalLoads     AtomicInt
+    LocalLoadErrs  AtomicInt
+    ServerRequests AtomicInt
+}
+
+class cache {
+	mu         sync.RWMutex
+	nbytes     int64
+	lru        *lru.Cache
+	nhit, nget int64
+	nevict     int64
+}
+
+Getter <|-- Group
+Group --> "Stats" Stats
+Group --> "mainCache" cache
+Group -->  cache #text:black   : hotCache
+Group --> "peers" PeerPicker
+@enduml
