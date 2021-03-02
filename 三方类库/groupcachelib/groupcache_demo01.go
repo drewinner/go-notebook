@@ -13,8 +13,8 @@ import (
 )
 
 //https://my.oschina.net/u/3470972/blog/1603171
-const defaultHost = "127.0.0.1:9001" //对外提供
-const group_addr = ":8081"           //集群内部peer互相通信使用
+const defaultHost = "127.0.0.1:9001" //集群内部peer互相通信使用
+const group_addr = ":8081"           //对外接口
 
 func GroupCacheDemo01() {
 	if len(os.Args) <= 1 {
