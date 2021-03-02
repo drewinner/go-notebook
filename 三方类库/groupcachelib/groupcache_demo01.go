@@ -12,8 +12,9 @@ import (
 	"strings"
 )
 
-const defaultHost = "127.0.0.1:9001"
-const group_addr = ":8081"
+//https://my.oschina.net/u/3470972/blog/1603171
+const defaultHost = "127.0.0.1:9001" //对外提供
+const group_addr = ":8081"           //集群内部peer互相通信使用
 
 func GroupCacheDemo01() {
 	if len(os.Args) <= 1 {
@@ -43,6 +44,8 @@ func GroupCacheDemo01() {
 //启动groupcache
 func setUpGroup(name string) {
 	//缓存池,
+	//这里有一个惯用方法、声明一个函数类型、此函数类型实现某个接口、并且执行该函数、
+	// 其它方法参数是接口类型、调用的时候、强制转换成该函数类型、golang http类库有类似实现方式
 	stringGroup := groupcache.NewGroup(name, 1<<20, groupcache.GetterFunc(func(_ context.Context, key string, dest groupcache.Sink) error {
 		//当cache miss之后，用来执行的load data方法
 		fp, err := os.Open("./groupcache.conf")

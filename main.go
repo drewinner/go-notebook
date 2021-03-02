@@ -3,5 +3,5 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("world")
+	fmt.Println(1 << 20)
 }
