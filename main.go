@@ -1,7 +1,7 @@
 package main
 
-import "fmt"
+import "go-notebook/三方类库/groupcachelib"
 
 func main() {
-	fmt.Println(1 << 20)
+	groupcachelib.GroupCacheDemo01()
 }

@@ -13,29 +13,27 @@ import (
 )
 
 //https://my.oschina.net/u/3470972/blog/1603171
+// go run main.go 127.0.0.1:9001 127.0.0.1:9002
 const defaultHost = "127.0.0.1:9001" //集群内部peer互相通信使用
 const group_addr = ":8081"           //对外接口
 
 func GroupCacheDemo01() {
 	if len(os.Args) <= 1 {
-		fmt.Fprintf(os.Stderr, "Usage: %s peer1 [peer2...]", os.Args[0])
+		_, _ = fmt.Fprintf(os.Stderr, "Usage: %s peer1 [peer2...]", os.Args[0])
 		os.Exit(1)
 	}
-
 	//本地peer地址
 	self := flag.String("self", defaultHost, "self node")
 	flag.Parse()
-
 	//cache集群所有节点
-	cluster := os.Args[1:]
-
+	cluster := os.Args[1:] //[127.0.0.1:9001 127.0.0.1:9002]
 	//初始化本地groupcache, 并监听groupcache相应的端口
 	setUpGroup("test_cache")
 	//本地peer
+	fmt.Println(*self)
 	peers := groupcache.NewHTTPPool(addrsToUrl(*self)[0])
 	//设置集群信息 用以本机缓存没命中的时候，一致性哈希查找key的存储节点, 并通过http请求访问
 	peers.Set(addrsToUrl(cluster...)...)
-
 	selfPort := strings.Split(*self, ":")[1]
 	_ = http.ListenAndServe(":"+selfPort, peers) //监听本机集群内部通信的端口
 
