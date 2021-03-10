@@ -44,3 +44,33 @@ func ReversePrint01(head *ListNode) []int {
 	return rs
 
 }
+
+//链表
+func ReversePrint03(head *ListNode) []int {
+	if head == nil {
+		return []int{}
+	}
+	if head.Next == nil {
+		return []int{head.Val}
+	}
+	var pre *ListNode
+	lLen := 0
+	for head != nil {
+		lLen++
+		//防丢失、保留
+		tmpNode := head.Next
+		//反转指针
+		head.Next = pre
+		//pre指针等于当前位置
+		pre = head
+		head = tmpNode
+	}
+	arr := make([]int, lLen)
+	i := 0
+	for pre != nil {
+		arr[i] = pre.Val
+		i++
+		pre = pre.Next
+	}
+	return arr
+}

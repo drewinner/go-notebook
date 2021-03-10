@@ -3,5 +3,6 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println(1 << 20)
+	s := []int{1, 2, 3, 4}
+	fmt.Println(s[:2])
 }
