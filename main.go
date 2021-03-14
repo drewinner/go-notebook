@@ -1,8 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
-	s := []int{1, 2, 3, 4}
-	fmt.Println(s[:2])
+	expireAt, _ := time.Parse("2006-01-02", time.Now().Format("2006-01-02"))
+	expireAt = expireAt.Add((24*5 + 2) * time.Hour)
+	fmt.Printf("%+v", expireAt)
 }

@@ -6,6 +6,13 @@ import (
 )
 
 func TestFindRepeatNumber(t *testing.T) {
-	num := lastRemaining(5, 2)
-	fmt.Println(num)
+	i := 10
+	x := struct {
+		a int
+	}{a: 10}
+	j := 20
+
+	fmt.Println(&i)
+	fmt.Println(&x)
+	fmt.Println(&j)
 }
