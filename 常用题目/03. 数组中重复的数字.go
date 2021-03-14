@@ -28,9 +28,9 @@ func FindRepeatNumber01(nums []int) int {
 	if len(nums) == 0 {
 		return 0
 	}
+	//控制扫描位置
 	for i := 0; i < len(nums); i++ {
 		for i != nums[i] {
-			//判断
 			if nums[i] == nums[nums[i]] {
 				return nums[i]
 			}

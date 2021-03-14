@@ -21,21 +21,22 @@ func FindNumberIn2DArray(matrix [][]int, target int) bool {
 	}
 	rows := len(matrix)    //行
 	cols := len(matrix[0]) //列
-	row, col := 0, cols-1  //当前行、当前列
+	//当前行 、当前列
+	row, col := 0, cols-1
+
 	for row < rows && col >= 0 {
 		num := matrix[row][col]
-		//如果当前值等于目标值、返回true
+		//如果当前值等于目标值
 		if num == target {
 			return true
 		}
-		//如果当前值大于目标值、往左找、即列-1
+		//如果当前值大于目标值、往左找、即列减一
 		if num > target {
-			col = col - 1
+			col--
+			continue
 		}
-		//如果当前值小于目标值、往下找、即行+1
-		if num < target {
-			row = row + 1
-		}
+		//当前值小于目标值、向下找、即行加一
+		row++
 	}
 	return false
 }

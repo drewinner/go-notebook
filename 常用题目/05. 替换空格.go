@@ -1,6 +1,8 @@
 package 常用题目
 
-import "strings"
+import (
+	"strings"
+)
 
 /**
 *	https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/
@@ -13,6 +15,7 @@ func ReplaceSpace03(s string) string {
 	return strings.Replace(s, " ", "%20", -1)
 
 }
+
 func ReplaceSpace(s string) string {
 	rs := ""
 	for _, v := range s {
